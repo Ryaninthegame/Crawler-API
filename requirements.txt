@@ -1,3 +1,7 @@
 Flask
 Flask-Cors
 gunicorn
+beautifulsoup4
+requests
+python-dateutil
+urllib3
