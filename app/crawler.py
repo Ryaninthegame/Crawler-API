@@ -142,3 +142,4 @@ def main(dateBegin, dateEnd, bombLimit):
         dic['content'] = content
     except:
         dic['state'] = 'fail'
+    return dic
