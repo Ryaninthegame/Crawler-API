@@ -134,6 +134,11 @@ def getImagePerArticle(candidate):
     return dic
 
 def main(dateBegin, dateEnd, bombLimit):
-    candidate = getCandidate(dateBegin, dateEnd, bombLimit)
-    dic = getImagePerArticle(candidate)
-    return dic
+    dic = {}
+    try:
+        candidate = getCandidate(dateBegin, dateEnd, bombLimit)
+        content = getImagePerArticle(candidate)
+        dic['state'] = 'success'
+        dic['content'] = content
+    except:
+        dic['state'] = 'fail'
