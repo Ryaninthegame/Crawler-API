@@ -51,17 +51,17 @@ def getInformation(article):
         link = r"https://www.ptt.cc/"+link.find('a').get('href')
     except:
         link = ""
-    return date.text, preBomb(bomb.text), mark.text, link
+    return date.text, getIntBomb(bomb.text), mark.text, link
 
 def filter(date, bomb, bombLimit, mark, link, dateBegin, dateEnd):
     date = parse(date)
     if parse(dateBegin)<=date<=parse(dateEnd):
-        if bomb=="爆" or int(bomb)>bombLimit:
+        if int(bomb)>bombLimit:
             if mark=="" and link !="":
                 return True
     return False
 
-def preBomb(bomb):
+def getIntBomb(bomb):
     try:
         if bomb=="爆":
             return 100
@@ -112,24 +112,12 @@ def getImageLink(soup):
             pass
     return imageSet
 
-def getHotBomb(soup):
-    pushSet = soup.find_all('div', class_='push')
-    like, boo = 0, 0
-    for push in pushSet:
-        if push.text[0]=='推':
-            like+=1
-        elif push.text[0]=='噓':
-            boo+=1
-    return like-boo
-
 def getImagePerArticle(candidate):
     dic = {}
     for url in candidate:
         soup = getSoup(url)
         title = getTitle(soup)
-        hotBomb = getHotBomb(soup)
         imageSet = getImageLink(soup)
-        imageSet.insert(0, hotBomb)
         dic[title] = imageSet
     return dic
 
